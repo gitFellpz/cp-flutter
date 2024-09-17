@@ -88,4 +88,27 @@ class ApiServices {
     }
     throw Exception('failed to load now playing movies');
   }
+
+  Future<Result> postFavoriteMovies(int movieId) async {
+    final endPoint = 'account/$movieId/favorite';
+    final url = '$baseUrl$endPoint$key';
+
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      return Result.fromJson(jsonDecode(response.body));
+    }
+    throw Exception('failed to load  movie details');
+  }
+
+  Future<Result> getFavoriteMovies(int movieId) async {
+    final endPoint =
+        'account/null/favorite/movies?language=en-US&page=1&sort_by=created_at.asc';
+    final url = '$baseUrl$endPoint$key';
+
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      return Result.fromJson(jsonDecode(response.body));
+    }
+    throw Exception('failed to load  movie details');
+  }
 }
